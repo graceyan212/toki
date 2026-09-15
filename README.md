@@ -3,7 +3,7 @@
 Mechanical keyboard sound for macOS — a menu-bar app that watches for keystrokes
 and synthesises a switch sound, plus the landing page that sells it.
 
-**Live site:** https://thock-site.vercel.app/
+**Live site:** https://toki-mac.vercel.app/
 
 ```
 app/     the macOS menu-bar app — 2,479 lines of Swift, 8 files
