@@ -1,0 +1,428 @@
+/* ============================================================================
+   Toki — Dusk
+   Deep blue-slate ground, one mint accent. The lit key is the only bright thing
+   above the fold, so attention lands on the thing you are meant to press.
+   Built mobile-first; every section is a single column that widens.
+   ========================================================================== */
+:root {
+  /* Near-monochrome light, one blue accent, in the idiom of Apple's own product
+     pages: the page recedes and the product is the only saturated thing on it.
+     On macOS `system-ui` already resolves to SF Pro, so the typeface comes free
+     and correct rather than being approximated by a webfont. */
+  --bg:      #f5f5f7;          /* the signature off-white, not pure white */
+  --bg-top:  #ffffff;
+  --panel:   #ffffff;
+  --line:    #d2d2d7;
+  --ink:     #1d1d1f;          /* near-black, never #000 */
+  --dim:     #6e6e73;
+  --faint:   #86868b;
+  --mint:    #0071e3;          /* the accent; name kept so components need no edit */
+  --mint-dk: #ffffff;
+  --warn:    #bf5b00;
+
+  /* Not-yet-typed text. #c7c7cc measured only 1.55:1 against the ground — faint
+     enough that you cannot comfortably read the line you are meant to type,
+     which defeats the exercise. #8e8e93 measures 2.99:1: still unmistakably
+     "not yet typed" against the 15.46:1 of a typed character, but legible. */
+  --untyped: #8e8e93;
+
+  --r-sm: 10px; --r-md: 12px; --r-lg: 18px; --r-xl: 22px;
+  --r-pill: 980px;             /* their button radius, effectively a capsule */
+  --pad: clamp(20px, 5vw, 56px);
+  --maxw: 980px;               /* narrower column: short lines, lots of air */
+
+  --ease: cubic-bezier(.28, .11, .32, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  /* Flat ground. A gradient would compete with the product; these pages are
+     deliberately inert so the one bright thing is what you are selling. */
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; border-radius: 6px; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--pad); }
+
+/* --- type ----------------------------------------------------------------- */
+h1 {
+  font-size: clamp(38px, 7.4vw, 76px);
+  line-height: 1.03;
+  letter-spacing: -.038em;    /* large type needs negative tracking to look set */
+  font-weight: 600;           /* semibold, not bold — heavier reads cheap at size */
+  max-width: 20ch;
+}
+h2 {
+  font-size: clamp(28px, 4.6vw, 46px);
+  line-height: 1.08;
+  letter-spacing: -.032em;
+  font-weight: 600;
+  max-width: 22ch;
+}
+h3 { font-size: 17px; font-weight: 650; letter-spacing: -.01em; }
+.lede { color: var(--dim); font-size: clamp(17px, 2.3vw, 21px); max-width: 44ch; margin-top: 14px;
+        line-height: 1.42; letter-spacing: -.012em; }
+.mint { color: var(--mint); }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.kicker {
+  font: 600 11px/1 ui-monospace, Menlo, monospace;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--mint);
+}
+.small { font-size: 13px; color: var(--faint); }
+
+/* --- buttons -------------------------------------------------------------- */
+.btn, .btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  border-radius: var(--r-pill); font-weight: 550; font-size: 16px;
+  min-height: 48px; padding: 0 23px;          /* >=44px tap target */
+  letter-spacing: -.01em;
+  transition: transform .15s var(--ease), background-color .2s var(--ease),
+              border-color .2s var(--ease), opacity .2s var(--ease);
+}
+.btn { background: var(--mint); color: var(--mint-dk); }
+.btn:hover { background: #0077ed; transform: none; }   /* no lift; they don't */
+.btn-ghost { border: 1px solid var(--line); color: var(--ink); }
+.btn-ghost { color: var(--mint); border-color: transparent; }
+.btn-ghost:hover { color: #0077ed; background: rgba(0,113,227,.06); }
+.btn[disabled], .btn-ghost[disabled] { opacity: .5; cursor: not-allowed; transform: none; }
+
+/* --- header --------------------------------------------------------------- */
+.site-head {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; padding: 0 var(--pad); min-height: 48px;
+  backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(245,245,247,.82);          /* the translucent chrome */
+  font-size: 14px;
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s var(--ease);
+}
+.site-head.scrolled { border-bottom-color: var(--line); }
+.brand { display: flex; align-items: center; gap: 9px; font-weight: 600; font-size: 15px; letter-spacing: -.015em; }
+.brand .glyph {
+  width: 22px; height: 22px; border-radius: 6px;
+  background: var(--ink); color: #fff; display: grid; place-items: center;
+  font: 600 12px/1 ui-sans-serif, system-ui; letter-spacing: -.02em;
+}
+.site-head nav { display: flex; align-items: center; gap: 6px; }
+.site-head nav a { padding: 10px 12px; font-size: 13.5px; color: var(--ink); opacity: .85; border-radius: 8px; }
+.site-head nav a:hover { color: var(--ink); }
+.site-head .btn { min-height: 32px; font-size: 13.5px; padding: 0 14px; font-weight: 500; }
+@media (max-width: 640px) { .site-head nav .hide-sm { display: none; } }
+
+/* --- sections ------------------------------------------------------------- */
+section { padding-block: clamp(56px, 8vw, 96px); }
+.center { text-align: center; }
+.center h1, .center h2, .center .lede { margin-inline: auto; }
+#tuner .lede, .privacy .lede { margin-top: 14px; }
+.stack-sm > * + * { margin-top: 14px; }
+.stack   > * + * { margin-top: 22px; }
+
+/* --- hero ----------------------------------------------------------------- */
+.hero { padding-top: clamp(48px, 9vw, 96px); }
+.hero .cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 32px; }
+.hero .stage { margin-top: clamp(48px, 8vw, 84px); }
+
+/* the playable keys */
+.keys { display: flex; gap: clamp(6px, 1.8vw, 14px); justify-content: center; flex-wrap: wrap; }
+.key {
+  /* narrow enough that all five of T-H-O-C-K fit one row at 390px;
+     at 17vw the last key orphaned onto a second line. */
+  width: clamp(52px, 14.5vw, 92px); aspect-ratio: 1;
+  border-radius: clamp(12px, 3vw, 18px);
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: 0 2px 0 var(--line);
+  color: var(--ink); font-size: clamp(17px, 4vw, 21px); font-weight: 650;
+  display: grid; place-items: center;
+  transition: transform .07s var(--ease), box-shadow .18s var(--ease),
+              background-color .18s var(--ease), color .18s var(--ease);
+}
+.key:hover { color: var(--ink); border-color: #3d4459; }
+.key.lit, .key:active {
+  background: var(--mint); border-color: var(--mint); color: #fff;
+  box-shadow: 0 2px 0 #005bbb;
+  transform: translateY(2px);
+}
+.hero .hint { margin-top: 26px; }
+
+/* --- tuner ---------------------------------------------------------------- */
+.tuner { display: grid; gap: 28px; margin-top: 36px; }
+@media (min-width: 820px) { .tuner { grid-template-columns: 1.05fr .95fr; align-items: start; gap: 44px; } }
+
+.switches { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  padding: 9px 14px; min-height: 44px; display: inline-flex; align-items: center;
+  border: 1px solid var(--line); border-radius: 999px; color: var(--dim); font-size: 14.5px;
+  transition: all .18s var(--ease);
+}
+.chip:hover { color: var(--ink); border-color: var(--faint); }
+.chip[aria-pressed="true"] { background: var(--mint); color: var(--mint-dk); border-color: var(--mint); font-weight: 650; }
+
+.sliders { display: grid; gap: 18px; }
+.slider label { display: flex; justify-content: space-between; font-size: 14px; color: var(--dim); }
+.slider label b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+input[type=range] {
+  -webkit-appearance: none; appearance: none; width: 100%; height: 34px; background: transparent;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  height: 4px; border-radius: 999px; background: #d2d2d7;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 22px; height: 22px; margin-top: -8.5px;
+  border-radius: 50%; background: var(--mint); border: 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,.2);
+}
+input[type=range]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 6px rgba(140,224,200,.3); }
+
+.scope {
+  border: 1px solid var(--line); border-radius: var(--r-lg); background: #fbfbfd;
+  padding: 14px; height: 148px; display: block; width: 100%;
+}
+.readout { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 12px; }
+.readout span { font: 500 12.5px ui-monospace, Menlo, monospace; color: var(--faint); }
+.readout b { color: var(--mint); font-weight: 600; }
+
+/* --- typing demo ---------------------------------------------------------- */
+.demo-field {
+  width: 100%; border: 1px solid var(--line); border-radius: var(--r-md);
+  background: #fff; color: var(--ink); padding: 15px 16px; font-size: 16px;
+  min-height: 54px; transition: border-color .2s var(--ease);
+}
+.demo-field:focus { outline: none; border-color: var(--mint); }
+.demo-field::placeholder { color: #5b6276; }
+
+/* --- generic cards / grid ------------------------------------------------- */
+.grid { display: grid; gap: 18px; margin-top: 40px; }
+@media (min-width: 620px) { .grid.two { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 860px) { .grid.four { grid-template-columns: repeat(4, 1fr); } }
+.card {
+  border: 0; border-radius: var(--r-xl); background: var(--panel);
+  padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,.04);
+}
+.card p { color: var(--dim); font-size: 15px; margin-top: 8px; }
+.card { text-align: left; }
+.grid.four .card { text-align: center; padding: 26px 18px; }
+.grid.four .card h3 { color: var(--dim); font-weight: 550; font-size: 14.5px; margin-top: 8px; }
+.card .num { font: 600 26px/1 ui-monospace, Menlo, monospace; color: var(--mint); letter-spacing: -.02em; }
+
+/* --- privacy: deliberately flatter, more technical register --------------- */
+.privacy { background: var(--panel); }
+.facts { list-style: none; margin-top: 30px; display: grid; gap: 2px; }
+.facts li {
+  display: grid; grid-template-columns: 20px 1fr; gap: 12px; align-items: start;
+  padding: 13px 2px; border-bottom: 1px solid #191d2a; font-size: 16px;
+}
+.facts li:last-child { border-bottom: 0; }
+.facts .tick { color: var(--mint); font-weight: 700; line-height: 1.5; }
+.facts code {
+  font: 500 13.5px ui-monospace, Menlo, monospace; color: var(--mint);
+  background: #121826; padding: 2px 6px; border-radius: 6px;
+}
+.facts .why { display: block; color: var(--faint); font-size: 14px; margin-top: 3px; }
+
+/* --- price ---------------------------------------------------------------- */
+.price-box {
+  border: 0; border-radius: var(--r-xl); background: var(--panel);
+  padding: clamp(30px, 5vw, 52px); margin-top: 36px; text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,.04);
+}
+.price-tag { font-size: clamp(44px, 9vw, 68px); font-weight: 700; letter-spacing: -.04em; line-height: 1; }
+.price-tag sup { font-size: .42em; vertical-align: super; margin-right: 2px; font-weight: 600; }
+.price-box .lede { margin-top: 12px; }
+.price-box .cta { margin-top: 26px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.compat { margin-top: 18px; }
+
+.notice {
+  margin-top: 20px; border: 1px dashed #3a3f52; border-radius: var(--r-md);
+  padding: 12px 14px; color: var(--warn); font-size: 13.5px; text-align: left;
+}
+
+/* --- footer --------------------------------------------------------------- */
+footer { border-top: 1px solid var(--line); padding-block: 44px; }
+.foot-row { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: center; }
+footer a { color: var(--dim); }
+footer a:hover { color: var(--ink); }
+
+/* --- reveal --------------------------------------------------------------- */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+
+/* Deterministic capture: the page reveals on scroll via IntersectionObserver,
+   which does not fire for off-screen content during a captureBeyondViewport
+   screenshot — so a full-page shot renders every unrevealed section as a blank
+   hole. Exactly the failure that made a section score 91.9% "within tolerance"
+   on the last project by matching empty background to empty background.
+   Stamped at capture time only; the live page still animates. */
+html[data-static] .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+
+/* ============================================================================
+   TYPING TEST — the page's whole first screen
+   ========================================================================== */
+.test-wrap { padding-block: clamp(40px, 7vw, 80px) clamp(48px, 8vw, 88px); }
+
+.test-meta {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px; flex-wrap: wrap; margin-bottom: 22px;
+}
+.switch-now {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 15px; font-weight: 650;
+}
+.switch-now .dot {
+  width: 9px; height: 9px; border-radius: 50%; background: var(--mint);
+  box-shadow: 0 0 14px 1px rgba(140, 224, 200, .7);
+}
+.switch-now .sw-fam {
+  font: 500 11px/1 ui-monospace, Menlo, monospace; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--faint);
+  border: 1px solid var(--line); border-radius: 999px; padding: 5px 9px;
+}
+.switch-now.flash { animation: swflash .5s var(--ease); }
+@keyframes swflash { from { opacity: .35; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+
+.stats { display: flex; gap: 18px; font: 500 13.5px ui-monospace, Menlo, monospace; color: var(--faint); }
+.stats b { color: var(--ink); font-weight: 600; }
+
+/* the paragraph */
+.test { outline: none; }
+.test-text {
+  font-size: clamp(22px, 3.6vw, 34px);
+  font-weight: 500;
+  line-height: 1.62;
+  letter-spacing: -.005em;
+  color: var(--untyped);              /* untyped */
+  max-width: 34ch;
+}
+@media (min-width: 760px) { .test-text { max-width: 46ch; } }
+
+.sentence { transition: opacity .3s var(--ease); opacity: .38; }
+.sentence.live { opacity: 1; }
+
+.ch { position: relative; transition: color .12s linear; }
+.ch.ok  { color: var(--ink); }
+.ch.bad { color: #d70015; background: rgba(215, 0, 21, .09); border-radius: 3px; }
+.ch.at::before {
+  content: ""; position: absolute; left: -2px; top: .08em; bottom: .08em; width: 2px;
+  background: var(--mint); border-radius: 2px; animation: caret 1.05s steps(1) infinite;
+}
+@keyframes caret { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+
+.test-hint { margin-top: 26px; color: var(--faint); font-size: 14px; min-height: 1.4em; }
+.test-actions { margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-ghost.sm { min-height: 40px; font-size: 14px; padding: 0 14px; }
+
+/* result panel */
+.result { padding-top: clamp(40px, 6vw, 72px); }
+.result h2 { margin-inline: auto; }
+.tune-row {
+  margin-top: 40px; border: 1px solid var(--line); border-radius: var(--r-xl);
+  background: var(--panel); padding: clamp(20px, 4vw, 32px); text-align: left;
+}
+.tune-row .switches { margin: 14px 0 20px; }
+.tune-row .sliders { max-width: 460px; }
+.tune-row .demo-field { margin-top: 20px; }
+
+.notice.pulse { border-color: var(--warn); background: rgba(255, 207, 139, .06); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ch.at::before { animation: none; }
+  .switch-now.flash { animation: none; }
+}
+
+/* --- FAQ ------------------------------------------------------------------
+   Native <details>, so it collapses with no JS, is keyboard-operable, and
+   announces its own open/closed state to screen readers. The first answer ships
+   open — otherwise the section reads as a stack of headings with no content.
+   -------------------------------------------------------------------------- */
+.faq { margin-top: 28px; max-width: 68ch; }
+
+.qa { border-bottom: 1px solid var(--line); }
+.qa:first-child { border-top: 1px solid var(--line); }
+
+.qa summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 17px 2px; cursor: pointer; list-style: none;
+  font-size: clamp(16px, 2.2vw, 18px); font-weight: 600; letter-spacing: -.01em;
+  min-height: 44px;                     /* tap target */
+  transition: color .18s var(--ease);
+}
+.qa summary::-webkit-details-marker { display: none; }
+.qa summary:hover { color: var(--mint); }
+.qa[open] summary { color: var(--mint); }
+
+/* chevron, drawn rather than shipped as an icon file */
+.qa .chev {
+  flex: 0 0 auto; width: 9px; height: 9px; margin-right: 4px;
+  border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+  transform: rotate(45deg); transform-origin: 60% 60%;
+  transition: transform .22s var(--ease); opacity: .7;
+}
+.qa[open] .chev { transform: rotate(-135deg); }
+
+.qa-body { padding: 0 2px 19px; }
+.qa-body p { color: var(--dim); font-size: 16px; line-height: 1.5; margin: 0; max-width: 62ch; }
+
+@media (prefers-reduced-motion: reduce) { .qa .chev { transition: none; } }
+
+/* --- autoplay button -------------------------------------------------------
+   The main affordance on a phone, where typing into a landing page is
+   unpleasant, so it gets the filled treatment while restart/skip stay quiet.
+   -------------------------------------------------------------------------- */
+.test-actions { align-items: center; }
+.btn.play { min-height: 46px; font-size: 15px; padding: 0 20px; }
+.btn.play::before {
+  content: ""; width: 0; height: 0; flex: 0 0 auto;
+  border-left: 9px solid currentColor;
+  border-top: 6px solid transparent; border-bottom: 6px solid transparent;
+  transition: none;
+}
+/* while playing, the triangle becomes a stop square */
+.btn.play[aria-pressed="true"]::before {
+  width: 11px; height: 11px; border: 0; background: currentColor; border-radius: 2px;
+}
+@media (max-width: 560px) {
+  .test-actions { width: 100%; }
+  .btn.play { flex: 1 1 100%; }
+}
+
+/* --- header + centring -----------------------------------------------------
+   Short lines, centred, with air above and below. The paragraph block itself
+   stays left-aligned inside a centred column: centred prose is harder to track
+   while typing, and the test is the one thing that must stay easy to read.
+   -------------------------------------------------------------------------- */
+.intro { padding-block: clamp(48px, 8vw, 92px) 0; }
+.intro h1 { margin-inline: auto; }
+.intro .lede { margin-inline: auto; }
+
+.test-wrap { padding-block: clamp(30px, 5vw, 52px) clamp(48px, 8vw, 84px); }
+.test-wrap .wrap { max-width: 760px; }
+.test-text { margin-inline: auto; }
+.test-meta { margin-bottom: 18px; }
+.test-actions { justify-content: center; }
+.test-hint { text-align: center; }
+
+/* the switch label reads as a caption here, not a readout */
+.switch-now .dot { box-shadow: none; }
+.switch-now .sw-fam { border-color: var(--line); }
+.stats { color: var(--faint); }
+
+/* results + FAQ centred to match */
+.faq { margin-inline: auto; }
+#faq h2 { margin-inline: auto; text-align: center; }

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Toki — colour + header options</title>
+<link rel="stylesheet" href="css/site.css">
+<style>
+  /* Each block re-declares the palette tokens, so these are the REAL styles with
+     only the colours swapped — not separate mockups that could drift from the
+     shipped page. */
+  body { background: #08090d; }
+  .lab { max-width: 1120px; margin: 0 auto; padding: 40px 28px 10px; }
+  .lab h2 { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #8a8a92; }
+  .lab p  { font-size: 13px; color: #6f6f78; margin-top: 6px; max-width: 70ch; }
+  .box { max-width: 1120px; margin: 0 auto 26px; border-radius: 18px; overflow: hidden; border: 1px solid #23252d; }
+
+  /* ---- A · EMBER : warm, near-black, amber ---- */
+  .ember {
+    --bg:#0d0c0b; --bg-top:#241f1a; --panel:#1a1714; --line:#312b25;
+    --ink:#f5f0ea; --dim:#a89c90; --faint:#7a6f64; --mint:#ff9f45; --mint-dk:#2a1705;
+  }
+  /* ---- B · PAPER : light, ink on warm white, tomato ---- */
+  .paper {
+    --bg:#f7f4ef; --bg-top:#fffdf9; --panel:#fffdfa; --line:#e2ddd3;
+    --ink:#191713; --dim:#645d52; --faint:#8e857a; --mint:#e0452f; --mint-dk:#fff6f3;
+  }
+  /* ---- C · IRIS : deep indigo, periwinkle ---- */
+  .iris {
+    --bg:#0c0d1a; --bg-top:#1d1f3d; --panel:#161834; --line:#2b2e57;
+    --ink:#eeeefb; --dim:#9d9fc9; --faint:#6f719b; --mint:#a5a0ff; --mint-dk:#14122e;
+  }
+
+  .demo {
+    background: radial-gradient(130% 80% at 50% -12%, var(--bg-top) 0%, var(--bg) 62%) no-repeat, var(--bg);
+    color: var(--ink); padding: 26px 0 40px;
+  }
+  .demo .site-head { background: transparent; border-bottom: 1px solid var(--line); position: static; }
+  .demo .test-text { color: color-mix(in oklab, var(--dim) 55%, transparent); }
+  .demo .sentence.live { opacity: 1 }
+  .demo .ch.ok { color: var(--ink) }
+</style>
+</head>
+<body>
+
+<div class="lab"><h2>A · Ember</h2>
+  <p>Warm near-black with amber. Reads like a piece of studio hardware; the accent
+     is the colour of a signal LED rather than a UI mint.</p></div>
+<div class="box"><div class="demo ember" data-v></div></div>
+
+<div class="lab"><h2>B · Paper</h2>
+  <p>Inverted — ink on warm white with one tomato accent. The typed text darkening
+     as you go is far more legible on light, and it reads editorial rather than app.</p></div>
+<div class="box"><div class="demo paper" data-v></div></div>
+
+<div class="lab"><h2>C · Iris</h2>
+  <p>Deep indigo with periwinkle. Closest in mood to the current dusk/mint, but
+     cooler and less "terminal green".</p></div>
+<div class="box"><div class="demo iris" data-v></div></div>
+
+<script>
+/* Build the same header + test markup into each variant, so all three show the
+   real component and differ only by palette. */
+const MARKUP = `
+  <header class="site-head">
+    <a class="brand" href="#"><span class="glyph">t</span> Toki</a>
+    <nav><a class="btn" href="#">Buy — $4.99</a></nav>
+  </header>
+
+  <div class="wrap intro">
+    <h1 class="headline">Your keyboard, with the sound it deserves.</h1>
+    <p class="sub">Seven mechanical switches for your Mac. Type the line below to hear them —
+       or press play and it types itself.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="test-meta">
+      <div class="switch-now"><span class="dot"></span><span>Milky Yellow</span>
+        <span class="sw-fam">Gateron</span></div>
+      <div class="stats"><span><b>112</b> wpm</span><span><b>100</b>%</span><span>2 / 7</span></div>
+    </div>
+    <p class="test-text">
+      <span class="sentence"><span class="ch ok">H</span><span class="ch ok">i</span><span class="ch ok">!</span><span class="ch ok"> </span><span class="ch ok">W</span><span class="ch ok">e</span><span class="ch ok">'</span><span class="ch ok">r</span><span class="ch ok">e</span><span class="ch ok"> </span><span class="ch ok">t</span><span class="ch ok">h</span><span class="ch ok">o</span><span class="ch ok">c</span><span class="ch ok">k</span><span class="ch ok">.</span><span class="ch"> </span></span><span class="sentence live">Your Mac, but it sounds good. </span><span class="sentence">Hear that? New switch. Seven to choose from.</span>
+    </p>
+    <div class="test-actions">
+      <button class="btn play">Play it for me</button>
+      <button class="btn-ghost sm">Restart</button>
+    </div>
+  </div>`;
+document.querySelectorAll('[data-v]').forEach(el => { el.innerHTML = MARKUP; });
+</script>
+
+<style>
+  /* the new header block, same in all three */
+  .intro { padding-top: clamp(34px, 6vw, 62px); padding-bottom: 6px; }
+  .headline {
+    font-size: clamp(30px, 4.6vw, 50px); line-height: 1.05; letter-spacing: -.035em;
+    font-weight: 700; max-width: 24ch;
+  }
+  .intro .sub { margin-top: 14px; color: var(--dim); font-size: clamp(15px,1.9vw,17.5px); max-width: 52ch; }
+  .demo .test-meta { margin-top: 34px }
+</style>
+</body>
+</html>

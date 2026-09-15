@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Toki — three art directions</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0}
+  body{font:15px/1.5 ui-sans-serif,system-ui,sans-serif;background:#101012;color:#eee}
+  .label{max-width:1240px;margin:0 auto;padding:44px 32px 14px}
+  .label h2{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#8a8a92}
+  .label p{font-size:13px;color:#6f6f78;margin-top:6px;max-width:64ch}
+  .frame{max-width:1240px;margin:0 auto 28px;border:1px solid #232327;border-radius:18px;overflow:hidden}
+
+  /* every direction shares the same skeleton: kicker, H1, one line, two buttons, one object */
+  .hero{padding:96px 40px 104px;text-align:center}
+  .hero h1{font-size:clamp(38px,5.6vw,72px);line-height:1.03;letter-spacing:-.035em;font-weight:700;
+    margin:0 auto;max-width:15ch}
+  .hero .sub{margin:22px auto 0;max-width:44ch;font-size:18px;line-height:1.5}
+  .hero .cta{margin-top:34px;display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap}
+  .hero .btn{border-radius:12px;padding:15px 24px;font-weight:650;font-size:16px}
+  .hero .btn2{border-radius:12px;padding:15px 22px;font-weight:600;font-size:16px}
+  .hero .stage{margin:72px auto 0;max-width:560px}
+  .caps{display:flex;gap:14px;justify-content:center}
+  .cap{width:88px;height:88px;border-radius:16px;display:grid;place-items:center;
+    font-size:22px;font-weight:650;position:relative}
+  .hint{margin-top:30px;font-size:13px}
+
+  /* ---------- A · Ink ---------- */
+  .A{background:#fbfbfa;color:#101014}
+  .A h1{color:#0e0e12}
+  .A h1 span{color:#3b3bff}
+  .A .sub{color:#6b6b74}
+  .A .btn{background:#0e0e12;color:#fbfbfa}
+  .A .btn2{color:#0e0e12;border:1px solid #dededa}
+  .A .cap{background:#fff;border:1px solid #e6e6e2;color:#22222a;
+    box-shadow:0 1px 0 #e6e6e2,0 10px 24px -14px rgba(0,0,0,.25)}
+  .A .cap.on{background:#3b3bff;border-color:#3b3bff;color:#fff;
+    box-shadow:0 1px 0 #2a2ad6,0 18px 40px -16px rgba(59,59,255,.6)}
+  .A .hint{color:#9a9aa2}
+
+  /* ---------- B · Dusk ---------- */
+  .B{background:radial-gradient(120% 80% at 50% -10%,#232634 0%,#131521 55%,#0e0f18 100%);color:#eef0f6}
+  .B h1{color:#f2f4fa}
+  .B h1 span{color:#8ce0c8}
+  .B .sub{color:#9aa0b4}
+  .B .btn{background:#8ce0c8;color:#10261f}
+  .B .btn2{color:#eef0f6;border:1px solid #2c3040}
+  .B .cap{background:linear-gradient(180deg,#232739,#1a1d2b);border:1px solid #303550;color:#c3c9dc;
+    box-shadow:0 2px 0 #0d0f18,inset 0 1px 0 #3b4162}
+  .B .cap.on{background:linear-gradient(180deg,#2f5d52,#1f4239);border-color:#4d8d7c;color:#c9f7e8;
+    box-shadow:0 0 46px -8px rgba(140,224,200,.5),inset 0 1px 0 #62a894}
+  .B .hint{color:#6d7488}
+
+  /* ---------- C · Clay ---------- */
+  .C{background:#f2efe9;color:#1d1b17}
+  .C h1{color:#1d1b17}
+  .C h1 span{color:#0f6d5c}
+  .C .sub{color:#6f6a60}
+  .C .btn{background:#0f6d5c;color:#f2efe9}
+  .C .btn2{color:#1d1b17;border:1px solid #ddd8ce}
+  .C .cap{background:#fffefb;border:1px solid #e2ddd2;color:#2b2822;
+    box-shadow:0 2px 0 #e2ddd2,0 12px 26px -16px rgba(31,28,22,.35)}
+  .C .cap.on{background:#0f6d5c;border-color:#0f6d5c;color:#f2efe9;box-shadow:0 2px 0 #0a5245}
+  .C .hint{color:#9c968a}
+</style>
+</head>
+<body>
+
+<div class="label">
+  <h2>Direction A · Ink</h2>
+  <p>Near-white, near-black, one electric blue. Type does everything; the keys float with no
+     container. Calm and modern — closest in spirit to how quiet the original feels, but a
+     completely different palette.</p>
+</div>
+<div class="frame"><section class="hero A">
+  <h1>You type all day. It should <span>sound</span> like something.</h1>
+  <p class="sub">Mechanical switch sound for your Mac, generated live — never a recording.</p>
+  <div class="cta">
+    <span class="btn">Buy for Mac — $4.99</span>
+    <span class="btn2">Play it here first</span>
+  </div>
+  <div class="stage">
+    <div class="caps"><div class="cap">T</div><div class="cap on">H</div><div class="cap">O</div></div>
+    <p class="hint">Press any key — no download</p>
+  </div>
+</section></div>
+
+<div class="label">
+  <h2>Direction B · Dusk</h2>
+  <p>Deep blue-slate with a soft mint key. Quiet and nocturnal — reads like a well-made
+     utility. The lit key is the only bright thing on the screen, so it draws the eye
+     straight to the thing you're meant to press.</p>
+</div>
+<div class="frame"><section class="hero B">
+  <h1>You type all day. It should <span>sound</span> like something.</h1>
+  <p class="sub">Mechanical switch sound for your Mac, generated live — never a recording.</p>
+  <div class="cta">
+    <span class="btn">Buy for Mac — $4.99</span>
+    <span class="btn2">Play it here first</span>
+  </div>
+  <div class="stage">
+    <div class="caps"><div class="cap">T</div><div class="cap on">H</div><div class="cap">O</div></div>
+    <p class="hint">Press any key — no download</p>
+  </div>
+</section></div>
+
+<div class="label">
+  <h2>Direction C · Clay</h2>
+  <p>Warm neutral with deep green. Same restfulness as the original but in a different
+     family — stone/clay rather than cream, green rather than pink. Friendliest of the three.</p>
+</div>
+<div class="frame"><section class="hero C">
+  <h1>You type all day. It should <span>sound</span> like something.</h1>
+  <p class="sub">Mechanical switch sound for your Mac, generated live — never a recording.</p>
+  <div class="cta">
+    <span class="btn">Buy for Mac — $4.99</span>
+    <span class="btn2">Play it here first</span>
+  </div>
+  <div class="stage">
+    <div class="caps"><div class="cap">T</div><div class="cap on">H</div><div class="cap">O</div></div>
+    <p class="hint">Press any key — no download</p>
+  </div>
+</section></div>
+
+</body>
+</html>

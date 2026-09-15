@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toki — mechanical keyboard sound for your Mac</title>
+<meta name="description" content="Seven mechanical keyboard switches for your Mac. Type one paragraph and hear every one of them, right in the browser.">
+<meta name="theme-color" content="#0e0f18">
+<!-- Pre-launch. Remove this line AND the X-Robots-Tag in vercel.json together on
+     the day checkout goes live; a meta tag alone does not cover non-HTML assets. -->
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Toki — hear your keyboard">
+<meta property="og:description" content="Type one paragraph. Every sentence is a different switch.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="css/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='9' fill='%231f4239'/><text x='16' y='22' font-size='16' font-family='monospace' font-weight='700' fill='%238ce0c8' text-anchor='middle'>t</text></svg>">
+</head>
+<body>
+
+<header class="site-head" id="head">
+  <a class="brand" href="#top"><span class="glyph">t</span> Toki</a>
+  <nav>
+    <a class="btn" href="#buy">Buy — $4.99</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HEADER — the page had none: it opened straight into dim grey text, so a
+       visitor could not tell what this was until after they committed to typing -->
+  <section class="intro wrap center">
+    <h1>Your keyboard,<br>with the sound it deserves.</h1>
+    <p class="lede">Seven mechanical switches for your Mac. Type the line below to hear
+      them — or press play and it types itself.</p>
+  </section>
+
+  <!-- THE TEST — this is the whole page ------------------------------------ -->
+  <section class="test-wrap">
+    <div class="wrap">
+
+      <div class="test-meta">
+        <div class="switch-now">
+          <span class="dot" id="sw-dot"></span>
+          <span id="sw-name">Gateron Milky Yellow</span>
+          <span class="sw-fam" id="sw-fam">Linear</span>
+        </div>
+        <div class="stats">
+          <span><b id="st-wpm">0</b> wpm</span>
+          <span><b id="st-acc">100</b>%</span>
+          <span id="st-prog">0 / 7</span>
+        </div>
+      </div>
+
+      <div class="test" id="test" tabindex="0" role="textbox" aria-label="Typing test — type the paragraph">
+        <p class="test-text" id="text"></p>
+      </div>
+
+      <p class="test-hint" id="hint">Every sentence is a different switch.</p>
+
+      <div class="test-actions">
+        <button class="btn play" id="auto" aria-pressed="false">Play it for me</button>
+        <button class="btn-ghost sm" id="restart">Restart</button>
+        <button class="btn-ghost sm" id="skip">Skip to the end</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULT — appears once the paragraph is done -------------------------- -->
+  <section class="result wrap center" id="result" hidden>
+    <h2>You just heard all seven.<br>They all come with it.</h2>
+
+    <div class="grid four">
+      <div class="card"><div class="num" id="r-wpm">—</div><h3>words per minute</h3></div>
+      <div class="card"><div class="num" id="r-acc">—</div><h3>accuracy</h3></div>
+      <div class="card"><div class="num" id="r-keys">—</div><h3>keystrokes heard</h3></div>
+      <div class="card"><div class="num">7</div><h3>switches tried</h3></div>
+    </div>
+
+    <div class="tune-row">
+      <p class="small">Switch between them freely — the dials reshape whichever one is playing.</p>
+      <div class="switches" id="switches"></div>
+      <div class="sliders">
+        <div class="slider"><label for="s-bright">Brightness <b id="v-bright">50</b></label>
+          <input type="range" id="s-bright" min="0" max="100" value="50"></div>
+        <div class="slider"><label for="s-body">Body <b id="v-body">50</b></label>
+          <input type="range" id="s-body" min="0" max="100" value="50"></div>
+        <div class="slider"><label for="s-decay">Decay <b id="v-decay">50</b></label>
+          <input type="range" id="s-decay" min="0" max="100" value="50"></div>
+      </div>
+      <input class="demo-field" id="demo" type="text" autocomplete="off" spellcheck="false"
+             placeholder="type anything…">
+    </div>
+  </section>
+
+
+  <!-- FAQ — the mechanics live here, not in the hero -------------------------- -->
+  <section class="wrap" id="faq">
+    <h2>Questions</h2>
+    <div class="faq">
+      <details class="qa" open>
+        <summary>Are these recordings of the real switches?<span class="chev" aria-hidden="true"></span></summary>
+        <div class="qa-body"><p>No — each one is modelled from scratch and generated as you type. They are our own emulations, named for the switches they were voiced against; Toki isn't affiliated with or endorsed by any switch maker. That is why no two keystrokes are identical: a sampled app replays the same clip and starts to grate after a few hundred words. It is also why you can bend them with the dials above, which a fixed audio file cannot do.</p></div>
+      </details>
+      <details class="qa">
+        <summary>So how close is it to the real thing?<span class="chev" aria-hidden="true"></span></summary>
+        <div class="qa-body"><p>Close enough that people who own these switches recognise them, not close enough to fool a recording. If you want a literal capture of your exact board, this is the wrong tool.</p></div>
+      </details>
+      <details class="qa">
+        <summary>Will it annoy people around me?<span class="chev" aria-hidden="true"></span></summary>
+        <div class="qa-body"><p>It is your speakers, so it is as loud as you set it — and headphones make it private. You can also turn off the key-up sound, which roughly halves the number of clicks.</p></div>
+      </details>
+      <details class="qa">
+        <summary>Does it record what I type?<span class="chev" aria-hidden="true"></span></summary>
+        <div class="qa-body"><p>No. macOS makes an app ask before it can watch for keystrokes, and Toki asks for the narrowest one there is — Input Monitoring, not Accessibility. It cannot read your screen or control other apps. The listener is listen-only: each key becomes a size and a stereo position, then is discarded. There is no logging path and no network code, so there is nothing to store and nowhere to send it. It also cannot see passwords — macOS hides those from every app, including this one.</p></div>
+      </details>
+      <details class="qa">
+        <summary>Which keyboards work?<span class="chev" aria-hidden="true"></span></summary>
+        <div class="qa-body"><p>All of them. It listens to the keystroke, not the hardware, so your laptop's built-in keyboard works the same as an external board.</p></div>
+      </details>
+      <details class="qa">
+        <summary>What do I actually install?<span class="chev" aria-hidden="true"></span></summary>
+        <div class="qa-body"><p>One menu-bar icon on macOS 13 or later, Apple silicon or Intel. No window, no dock icon, no account.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- BUY ------------------------------------------------------------------- -->
+  <section class="wrap center" id="buy">
+    <div class="price-box">
+      <div class="price-tag"><sup>$</sup>4.99</div>
+      <p class="lede">Once. No subscription, no account.</p>
+      <div class="cta">
+        <a class="btn" href="#buy" id="buy-btn">Buy for Mac</a>
+        <button class="btn-ghost" id="again">Type it again</button>
+      </div>
+      <p class="compat small">macOS 13+ · menu bar only · nothing you type is stored or sent</p>
+      <p class="notice" id="prelaunch"><b>Pre-launch:</b> checkout isn't live yet. The test above is the finished sound.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span class="small">Toki · synthesised keyboard sound for macOS</span>
+    <span class="small">Listen-only · no logging · no network</span>
+  </div>
+  <div class="wrap foot-row">
+    <span class="small">Switch names are trademarks of their respective owners and are used only to
+      identify the switches these sounds were modelled on. Toki is an independent product,
+      not affiliated with or endorsed by any switch manufacturer. Every sound is original
+      synthesis — no recordings of any switch are used.</span>
+  </div>
+</footer>
+
+<script type="module" src="js/typing.js"></script>
+</body>
+</html>
