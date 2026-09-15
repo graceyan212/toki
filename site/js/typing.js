@@ -339,15 +339,6 @@ $('#demo')?.addEventListener('keydown', async (e) => {
 });
 $('#demo')?.addEventListener('focus', boot);
 
-/* checkout stays inert until there is a build to sell */
-$('#buy-btn')?.addEventListener('click', (e) => {
-  e.preventDefault();
-  const n = $('#prelaunch');
-  n.classList.add('pulse');
-  n.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  setTimeout(() => n.classList.remove('pulse'), 1500);
-});
-
 /* header hairline */
 addEventListener('scroll', () => {
   $('#head').classList.toggle('scrolled', scrollY > 8);

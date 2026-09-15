@@ -193,11 +193,4 @@ if (ctx2d) {
 /* --- the demo field ---------------------------------------------------------- */
 $('#demo')?.addEventListener('focus', boot);
 
-/* --- checkout is intentionally inert until there is a build to sell ---------- */
-$('#buy-btn')?.addEventListener('click', (e) => {
-  e.preventDefault();
-  const n = $('#prelaunch');
-  n.style.borderColor = '#ffcf8b';
-  n.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  setTimeout(() => { n.style.borderColor = ''; }, 1600);
-});
+

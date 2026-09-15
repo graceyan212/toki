@@ -237,7 +237,7 @@ input[type=range]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 6px rg
   padding: clamp(30px, 5vw, 52px); margin-top: 36px; text-align: center;
   box-shadow: 0 1px 3px rgba(0,0,0,.04);
 }
-.price-tag { font-size: clamp(44px, 9vw, 68px); font-weight: 700; letter-spacing: -.04em; line-height: 1; }
+.price-tag { font-size: clamp(30px, 5.4vw, 44px); font-weight: 700; letter-spacing: -.02em; line-height: 1.05; }
 .price-tag sup { font-size: .42em; vertical-align: super; margin-right: 2px; font-weight: 600; }
 .price-box .lede { margin-top: 12px; }
 .price-box .cta { margin-top: 26px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
